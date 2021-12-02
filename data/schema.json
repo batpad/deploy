@@ -7,56 +7,25 @@
             "description": "AWS Credential Profile to use"
         },
         "artifacts": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "docker": {
-                    "oneOf": [{
-                        "type": "string"
-                    },{
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },{
-                        "type": "boolean"
-                    }]
-                },
-                "lambda": {
-                    "oneOf": [{
-                        "type": "string"
-                    },{
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },{
-                        "type": "boolean"
-                    }]
-                }
-            }
+            "$ref": "./util/artifacts.json"
         },
         "tags": {
-            "type": "array",
-            "items": {
-                "oneOf": [{
-                    "type": "string"
-                },{
+            "$ref": "./util/tags.json"
+        },
+        "substacks": {
+            "patternProperties": {
+                ".*": {
                     "type": "object",
-                    "required": [
-                        "Key",
-                        "Value"
-                    ],
                     "additionalProperties": false,
                     "properties": {
-                        "Key": {
-                            "type": "string"
+                        "artifacts": {
+                            "$ref": "./util/artifacts.json"
                         },
-                        "Value": {
-                            "type": "string"
+                        "tags": {
+                            "$ref": "./util/tags.json"
                         }
                     }
-                }]
+                }
             }
         }
     }
