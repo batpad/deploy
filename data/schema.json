@@ -7,25 +7,81 @@
             "description": "AWS Credential Profile to use"
         },
         "artifacts": {
-            "$ref": "./util/artifacts.json"
+            "$ref": "#/$defs/artifacts"
         },
         "tags": {
-            "$ref": "./util/tags.json"
+            "$ref": "#/$defs/tags"
         },
         "substacks": {
+            "type": "object",
             "patternProperties": {
                 ".*": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
                         "artifacts": {
-                            "$ref": "./util/artifacts.json"
+                            "$ref": "#/$defs/artifacts"
                         },
                         "tags": {
-                            "$ref": "./util/tags.json"
+                            "$ref": "#/$defs/tags"
                         }
                     }
                 }
+            }
+        }
+    },
+    "$defs": {
+        "artifacts": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "docker": {
+                    "oneOf": [{
+                        "type": "string"
+                    },{
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },{
+                        "type": "boolean"
+                    }]
+                },
+                "lambda": {
+                    "oneOf": [{
+                        "type": "string"
+                    },{
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },{
+                        "type": "boolean"
+                    }]
+                }
+            }
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "oneOf": [{
+                    "type": "string"
+                },{
+                    "type": "object",
+                    "required": [
+                        "Key",
+                        "Value"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "Key": {
+                            "type": "string"
+                        },
+                        "Value": {
+                            "type": "string"
+                        }
+                    }
+                }]
             }
         }
     }
